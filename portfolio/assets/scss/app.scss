@@ -1,0 +1,18 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+a, p {
+    @apply text-xl
+}
+#burger-button {
+    background-color: #27282c;
+}
+
+body {
+    background-color: #27282c;
+}
+
+.nav-logo {
+    height: 75px;
+}
