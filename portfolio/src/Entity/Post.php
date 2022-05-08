@@ -40,8 +40,24 @@ class Post
 
     #[ORM\ManyToOne(targetEntity: Technology::class)]
     #[JoinColumn(name: 'technology_identifier', referencedColumnName: 'identifier')]
-    private Technology $technology;
+    private ?Technology $technology;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $slug;
+
+    public function __construct(
+        Ulid $identifier,
+        string $title,
+        string $description,
+        string $content,
+        string $slug,
+        \DateTimeInterface $createAt,
+    ){
+        $this->identifier = $identifier;
+        $this->title = $title;
+        $this->description = $description;
+        $this->content = $content;
+        $this->slug = $slug;
+        $this->createAt = $createAt;
+    }
 }

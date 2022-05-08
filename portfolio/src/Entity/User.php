@@ -33,6 +33,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class)]
     private Post $posts;
 
+    public function __construct(
+        Ulid $identifier,
+        string $email,
+        string $roles,
+        string $password,
+    ){
+        $this->identifier = $identifier;
+        $this->email = $email;
+        $this->roles = $roles;
+        $this->password = $password;
+    }
+
     public function getIdentifier(): Ulid
     {
         return $this->identifier;
