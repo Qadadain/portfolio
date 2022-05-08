@@ -29,6 +29,19 @@ class Technology
     #[ORM\OneToMany(mappedBy: 'identifier', targetEntity: Post::class)]
     private Technology $technologies;
 
+    public function __construct(
+        $identifier,
+        $color,
+        $name,
+        $slug
+    )
+    {
+        $this->identifier = $identifier;
+        $this->color = $color;
+        $this->name = $name;
+        $this->slug = $slug;
+    }
+
     public function getIdentifier(): Ulid
     {
         return $this->identifier;
