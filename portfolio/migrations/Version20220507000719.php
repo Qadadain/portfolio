@@ -18,7 +18,7 @@ final class Version20220507000719 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $user = $schema->createTable(name: self::USER_TABLE_NAME);
-        $userIdentifier = $user->addColumn(name: 'identifier', typeName: Types::BINARY, options: ['notnull' => true, 'comment' => '(DC2Type:ulid)', 'length' => 16]);
+        $userIdentifier = $user->addColumn(name: 'identifier', typeName: Types::INTEGER, options: ['notnull' => true, 'autoincrement'=> true, 'length' => 16]);
         $user->addColumn(name: 'email', typeName: Types::STRING, options:  ['notnull' => true, 'length' => 180]);
         $user->addColumn(name: 'roles', typeName: Types::JSON, options:  ['notnull' => true]);
         $user->addColumn(name: 'password', typeName: Types::STRING, options:  ['notnull' => true, 'length' => 255]);
@@ -26,16 +26,16 @@ final class Version20220507000719 extends AbstractMigration
         $user->addUniqueConstraint(['email']);
 
         $technology = $schema->createTable(name: self::TECHNOLOGY_TABLE_NAME);
-        $technologyIdentifier = $technology->addColumn(name: 'identifier', typeName: Types::BINARY, options: ['notnull' => true, 'comment' => '(DC2Type:ulid)', 'length' => 16]);
+        $technologyIdentifier = $technology->addColumn(name: 'identifier', typeName: Types::INTEGER, options: ['notnull' => true, 'autoincrement'=> true, 'length' => 16]);
         $technology->addColumn(name: 'name', typeName: Types::STRING, options:  ['notnull' => true, 'length' => 180]);
         $technology->addColumn(name: 'color', typeName: Types::STRING, options:  ['notnull' => false, 'default' => null, 'length' => 7]);
         $technology->addColumn(name: 'slug', typeName: Types::STRING, options:  ['notnull' => false, 'default' => null, 'length' => 255]);
         $technology->setPrimaryKey([$technologyIdentifier->getName()]);
 
         $post = $schema->createTable(name: self::POST_TABLE_NAME);
-        $postIdentifier = $post->addColumn(name: 'identifier', typeName: Types::BINARY, options: ['notnull' => true, 'comment' => '(DC2Type:ulid)', 'length' => 16]);
-        $post->addColumn(name: 'user_identifier', typeName: Types::BINARY, options: ['notnull' => false, 'default' => null, 'comment' => '(DC2Type:ulid)', 'length' => 16]);
-        $post->addColumn(name: 'technology_identifier', typeName: Types::BINARY, options: ['notnull' => false, 'default' => null, 'comment' => '(DC2Type:ulid)', 'length' => 16]);
+        $postIdentifier = $post->addColumn(name: 'identifier', typeName: Types::INTEGER, options: ['notnull' => true, 'autoincrement'=> true, 'length' => 16]);
+        $post->addColumn(name: 'user_identifier', typeName: Types::INTEGER, options: ['notnull' => false, 'default' => null, 'length' => 16]);
+        $post->addColumn(name: 'technology_identifier', typeName: Types::INTEGER, options: ['notnull' => false, 'default' => null, 'length' => 16]);
         $post->addColumn(name: 'title', typeName: Types::STRING, options:  ['notnull' => true, 'length' => 180]);
         $post->addColumn(name: 'description', typeName: Types::STRING, options:  ['notnull' => true, 'length' => 180]);
         $post->addColumn(name: 'content', typeName: Types::TEXT, options:  ['notnull' => true]);

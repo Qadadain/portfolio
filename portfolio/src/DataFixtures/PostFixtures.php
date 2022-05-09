@@ -4,12 +4,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Post;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Symfony\Component\Uid\Ulid;
 
-class PostFixtures extends Fixture implements DependentFixtureInterface
+class PostFixtures extends Fixture
 {
     public const POST = [
         [
@@ -92,27 +91,20 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         ],
     ];
 
-    public function getDependencies()
-    {
-        return [UserFixtures::class, TechnologyFixtures::class];
-    }
-
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
 
         foreach (self::POST as $data) {
-           $post = new Post(
-               identifier: new Ulid(),
-               title: $data['title'],
-               description: $data['description'],
-               content: $data['content'],
-               slug: 'toto',
-               createAt: $faker->dateTime,
-           );
+            $post = new Post();
+            $post->setTitle($data['title']);
+            $post->setContent($data['content']);
+            $post->setDescription($data['description']);
+            $post->setCreateAt($faker->dateTime);
+
             $manager->persist($post);
         }
+
         $manager->flush();
     }
-
 }

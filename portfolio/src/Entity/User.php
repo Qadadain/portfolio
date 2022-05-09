@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
+use \Doctrine\Common\Collections\Collection as Collection;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,36 +17,29 @@ use Symfony\Component\Uid\Ulid;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[Id]
-    #[Column(type: 'ulid', unique: true)]
-    #[GeneratedValue(strategy: 'NONE')]
-    private Ulid $identifier;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private $identifier;
 
     #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     private string $email;
 
     #[ORM\Column(type: Types::JSON)]
-    private $roles = [];
+    private array $roles = [];
 
     #[ORM\Column(type: Types::STRING)]
     private string $password;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class)]
-    private Post $posts;
+    private Collection $posts;
 
-    public function __construct(
-        Ulid $identifier,
-        string $email,
-        string $roles,
-        string $password,
-    ){
-        $this->identifier = $identifier;
-        $this->email = $email;
-        $this->roles = $roles;
-        $this->password = $password;
+    public function __toString(): string
+    {
+        return $this->email;
     }
 
-    public function getIdentifier(): Ulid
+    public function getIdentifier(): int
     {
         return $this->identifier;
     }

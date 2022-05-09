@@ -44,15 +44,16 @@ class TechnologyFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        foreach (self::TECHNOLOGY as $data) {
-            $technology = new Technology(
-                identifier: new Ulid(),
-                color: $data['color'],
-                name: $data['name'],
-                slug: $data['slug'],
-            );
-            $manager->persist($technology);
+        foreach (self::TECHNOLOGY  as $data)
+        {
+        $technology = new Technology();
+        $technology->setColor($data['color']);
+        $technology->setName($data['name']);
+        $technology->setSlug($data['slug']);
+
+        $manager->persist($technology);
         }
+
         $manager->flush();
     }
 }
