@@ -14,10 +14,10 @@ use Doctrine\DBAL\Types\Types;
 #[ORM\Entity]
 class Post
 {
-    #[Id]
-    #[Column(type: 'ulid', unique: true)]
-    #[GeneratedValue(strategy: 'NONE')]
-    private Ulid $identifier;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private $identifier;
 
     #[ORM\Column(type: Types::STRING, length: 180)]
     private string $title;
@@ -45,19 +45,92 @@ class Post
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $slug;
 
-    public function __construct(
-        Ulid $identifier,
-        string $title,
-        string $description,
-        string $content,
-        string $slug,
-        \DateTimeInterface $createAt,
-    ){
-        $this->identifier = $identifier;
+    public function getIdentifier(): int
+    {
+        return $this->identifier;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    public function getCreateAt(): \DateTimeInterface
+    {
+        return $this->createAt;
+    }
+
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        return $this->updateAt;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function getTechnology(): ?Technology
+    {
+        return $this->technology;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+
+
+    public function setTitle(string $title): void
+    {
         $this->title = $title;
+    }
+
+    public function setDescription(string $description): void
+    {
         $this->description = $description;
+    }
+
+    public function setContent(string $content): void
+    {
         $this->content = $content;
-        $this->slug = $slug;
+    }
+
+    public function setCreateAt(\DateTimeInterface $createAt): void
+    {
         $this->createAt = $createAt;
     }
+
+    public function setUpdateAt(?\DateTimeInterface $updateAt): void
+    {
+        $this->updateAt = $updateAt;
+    }
+
+    public function setAuthor(?User $author): void
+    {
+        $this->author = $author;
+    }
+
+    public function setTechnology(?Technology $technology): void
+    {
+        $this->technology = $technology;
+    }
+
+    public function setSlug(?string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
+
 }
