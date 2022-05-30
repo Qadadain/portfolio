@@ -20,7 +20,6 @@ class DashboardController extends AbstractDashboardController
     {
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
 
-        // Option 1. Make your dashboard redirect to the same page for all users
         return $this->redirect($adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
     }
 
