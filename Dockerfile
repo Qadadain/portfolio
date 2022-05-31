@@ -39,6 +39,8 @@ COPY /portfolio/package-lock.json /code
 RUN npm ci
 
 COPY /portfolio/assets /code/assets
+COPY /portfolio/postcss.config.js /code
+COPY /portfolio/tailwind.config.js /code
 COPY /portfolio/webpack.config.js /code
 RUN npm run build
 
