@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\Admin\CRUD\UserCrudController;
 use App\Entity\Post;
-use App\Entity\Technology;
+use App\Entity\Tag;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -32,8 +32,8 @@ public function configureDashboard(): Dashboard
 public function configureMenuItems(): iterable
 {
     yield MenuItem::linkToCrud('User', 'fas fa-list', User::class);
-    yield MenuItem::linkToCrud('Technology', 'fas fa-list', Technology::class);
     yield MenuItem::linkToCrud('Post', 'fas fa-list', Post::class);
+    yield MenuItem::linkToCrud('Tag', 'fas fa-list', Tag::class);
 }
 
 }
