@@ -23,17 +23,17 @@ class DashboardController extends AbstractDashboardController
         return $this->redirect($adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
     }
 
-public function configureDashboard(): Dashboard
-{
-    return Dashboard::new()
-        ->setTitle('Blog');
-}
+    public function configureDashboard(): Dashboard
+    {
+        return Dashboard::new()
+            ->setTitle('Blog');
+    }
 
-public function configureMenuItems(): iterable
-{
-    yield MenuItem::linkToCrud('User', 'fas fa-list', User::class);
-    yield MenuItem::linkToCrud('Post', 'fas fa-list', Post::class);
-    yield MenuItem::linkToCrud('Tag', 'fas fa-list', Tag::class);
-}
+    public function configureMenuItems(): iterable
+    {
+        yield MenuItem::linkToCrud(label: 'User', icon: 'fas fa-list', entityFqcn: User::class);
+        yield MenuItem::linkToCrud(label: 'Post', icon: 'fas fa-list', entityFqcn:Post::class);
+        yield MenuItem::linkToCrud(label: 'Tag', icon: 'fas fa-list', entityFqcn:Tag::class);
+    }
 
 }

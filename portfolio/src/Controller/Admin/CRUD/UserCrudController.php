@@ -35,7 +35,7 @@ class UserCrudController extends AbstractCrudController
     {
         return $crud
 
-            ->setPageTitle('index', 'Utilisateur')
+            ->setPageTitle(pageName: 'index', title: 'Utilisateur')
             ->setSearchFields(['identifier', 'email','roles']);
     }
 

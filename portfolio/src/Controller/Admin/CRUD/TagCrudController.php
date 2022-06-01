@@ -23,7 +23,7 @@ class TagCrudController extends AbstractCrudController
             IdField::new(propertyName: 'id')->hideOnForm(),
             TextField::new(propertyName: 'name'),
             ColorField::new(propertyName: 'color'),
-            SlugField::new(propertyName: 'slug')->setTargetFieldName('name'),
+            SlugField::new(propertyName: 'slug')->setTargetFieldName(fieldName: 'name'),
         ];
     }
 
