@@ -12,6 +12,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
         "easycorp/easyadmin-bundle": "^4.1",
+        "friendsofphp/php-cs-fixer": "^3.8",
         "fzaninotto/faker": "^1.5",
         "symfony/console": "6.0.*",
         "symfony/dotenv": "6.0.*",
