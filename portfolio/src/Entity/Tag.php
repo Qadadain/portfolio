@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
@@ -10,7 +11,7 @@ class Tag
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER,)]
+    #[ORM\Column(type: Types::INTEGER, )]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::STRING, unique: true)]

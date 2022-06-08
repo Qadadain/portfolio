@@ -16,7 +16,6 @@ class TagCrudController extends AbstractCrudController
         return Tag::class;
     }
 
-
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -26,5 +25,4 @@ class TagCrudController extends AbstractCrudController
             SlugField::new(propertyName: 'slug')->setTargetFieldName(fieldName: 'name'),
         ];
     }
-
 }

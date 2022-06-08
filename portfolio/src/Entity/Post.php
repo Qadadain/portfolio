@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity;
 
 use DateTimeZone;
@@ -9,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
@@ -114,25 +112,16 @@ class Post
         $this->publishedAt = $publishedAt;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string|null $description
-     */
     public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
@@ -143,9 +132,8 @@ class Post
      */
     #[ORM\PreUpdate]
     public function setUpdatedAt(): self
-
     {
-        $this->updatedAt = new \DateTime(datetime:'now', timezone:new DateTimeZone(timezone:'Europe/Paris'));
+        $this->updatedAt = new \DateTime(datetime: 'now', timezone: new DateTimeZone(timezone: 'Europe/Paris'));
 
         return $this;
     }

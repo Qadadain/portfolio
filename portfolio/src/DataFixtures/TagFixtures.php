@@ -1,4 +1,5 @@
 <?php
+
 namespace App\DataFixtures;
 
 use App\Entity\Tag;
@@ -7,7 +8,6 @@ use Doctrine\Persistence\ObjectManager;
 
 class TagFixtures extends Fixture
 {
-
     public const TAG = [
         [
             'name' => 'PHP',
