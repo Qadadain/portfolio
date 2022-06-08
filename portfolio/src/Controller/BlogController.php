@@ -21,7 +21,7 @@ class BlogController extends AbstractController
     ) {
     }
 
-    #[Route(path: self::ROUTE_PATH_BLOG, name: self::ROUTE_NAME_BLOG)]
+    #[Route(path: self::ROUTE_PATH_BLOG, name: self::ROUTE_NAME_BLOG, methods: [HttpFoundation\Request::METHOD_GET])]
     public function handle(): HttpFoundation\Response
     {
         $posts = $this->em->getRepository(entityName: Post::class)->findAll();
