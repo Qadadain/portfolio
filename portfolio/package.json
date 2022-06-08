@@ -3,8 +3,23 @@
         "@hotwired/stimulus": "^3.0.0",
         "@symfony/stimulus-bridge": "^3.0.0",
         "@symfony/webpack-encore": "^1.7.0",
+        "autoprefixer": "^10.4.7",
         "core-js": "^3.0.0",
+        "file-loader": "^6.2.0",
+        "jquery": "^3.6.0",
+        "postcss": "^8.4.13",
+        "postcss-loader": "^6.2.1",
         "regenerator-runtime": "^0.13.2",
+        "sass": "^1.51.0",
+        "sass-loader": "^12.6.0",
+        "stylelint": "^14.8.5",
+        "stylelint-config-prettier": "^9.0.3",
+        "stylelint-config-prettier-scss": "^0.0.1",
+        "stylelint-config-recommended-scss": "^6.0.0",
+        "stylelint-config-standard": "^25.0.0",
+        "stylelint-config-standard-scss": "^4.0.0",
+        "stylelint-order": "^5.0.0",
+        "tailwindcss": "^3.0.24",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -14,5 +29,9 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "eslint": "^8.17.0",
+        "@typescript-eslint/parser": "^5.18.0"
     }
 }

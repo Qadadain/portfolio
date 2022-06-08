@@ -1,3 +1,9 @@
+networks:
+  internal:
+    internal: true
+  exposed:
+    internal: false
+
 secrets:
   database-password:
     file: portfolio/secrets/DATABASE_PASSWORD
@@ -21,6 +27,9 @@ services:
     secrets:
       - source: database-password
         target: database-password
+    networks:
+      - internal
+      - exposed
 
   database:
     image: docker.io/library/mysql:8-oracle
@@ -32,7 +41,8 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: yes
     secrets:
       - database-password
-
+    networks:
+      - internal
 
   dbadmin:
     image: docker.io/library/phpmyadmin:5.1-apache
@@ -42,5 +52,8 @@ services:
       PMA_HOST: 'database'
     secrets:
       - database-password
+    networks:
+      - internal
+      - exposed
     ports:
       - '8080:80'

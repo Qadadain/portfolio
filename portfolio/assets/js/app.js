@@ -6,7 +6,13 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
+import '../scss/app.scss';
 
 // start the Stimulus application
-import './bootstrap';
+import '../bootstrap';
+const $ = require("jquery");
+
+$("#burger-button").click(function() {
+    $("#burger-menu").toggle();
+});
+
