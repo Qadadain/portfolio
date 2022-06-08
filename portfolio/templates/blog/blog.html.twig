@@ -3,9 +3,10 @@
 {% block title %}Hello BlogController!{% endblock %}
 
 {% block body %}
-{% for post in posts %}
-    {{ post.title }}
+    {% for post in posts %}
+        <a href="{{ path('post', {'slug': post.slug}) }}"> {{ post.title }}</a>
 
-    <br>
-{% endfor %}
+
+        <br>
+    {% endfor %}
 {% endblock %}
