@@ -1,15 +1,14 @@
 <?php
-
 namespace App\DataFixtures;
 
-use App\Entity\Technology;
+use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Uid\Ulid;
 
-class TechnologyFixtures extends Fixture
+class TagFixtures extends Fixture
 {
-    public const TECHNOLOGY = [
+
+    public const TAG = [
         [
             'name' => 'PHP',
             'slug' => 'php',
@@ -44,14 +43,13 @@ class TechnologyFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        foreach (self::TECHNOLOGY  as $data)
-        {
-        $technology = new Technology();
-        $technology->setColor($data['color']);
-        $technology->setName($data['name']);
-        $technology->setSlug($data['slug']);
+        foreach (self::TAG as $data) {
+            $tag = new Tag();
+            $tag->setColor($data['color']);
+            $tag->setName($data['name']);
+            $tag->setSlug($data['slug']);
 
-        $manager->persist($technology);
+            $manager->persist($tag);
         }
 
         $manager->flush();

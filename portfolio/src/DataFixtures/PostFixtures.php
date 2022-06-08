@@ -6,7 +6,6 @@ use App\Entity\Post;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
-use Symfony\Component\Uid\Ulid;
 
 class PostFixtures extends Fixture
 {
@@ -100,7 +99,7 @@ class PostFixtures extends Fixture
             $post->setTitle($data['title']);
             $post->setContent($data['content']);
             $post->setDescription($data['description']);
-            $post->setCreateAt($faker->dateTime);
+            $post->setPublishedAt($faker->dateTime);
 
             $manager->persist($post);
         }

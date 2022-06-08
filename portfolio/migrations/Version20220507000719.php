@@ -11,8 +11,9 @@ use Doctrine\Migrations\AbstractMigration;
 final class Version20220507000719 extends AbstractMigration
 {
     private const USER_TABLE_NAME = 'user';
-    private const TECHNOLOGY_TABLE_NAME = 'technology';
-    private const POST_TABLE_NAME = 'post';
+    private const TAG_TABLE_NAME = 'blog_tag';
+    private const POST_TABLE_NAME = 'blog_post';
+    private const POST_TAG_TABLE_NAME = 'post_tag';
 
 
     public function up(Schema $schema): void
@@ -25,34 +26,38 @@ final class Version20220507000719 extends AbstractMigration
         $user->setPrimaryKey([$userIdentifier->getName()]);
         $user->addUniqueConstraint(['email']);
 
-        $technology = $schema->createTable(name: self::TECHNOLOGY_TABLE_NAME);
-        $technologyIdentifier = $technology->addColumn(name: 'identifier', typeName: Types::INTEGER, options: ['notnull' => true, 'autoincrement'=> true, 'length' => 16]);
-        $technology->addColumn(name: 'name', typeName: Types::STRING, options:  ['notnull' => true, 'length' => 180]);
-        $technology->addColumn(name: 'color', typeName: Types::STRING, options:  ['notnull' => false, 'default' => null, 'length' => 7]);
-        $technology->addColumn(name: 'slug', typeName: Types::STRING, options:  ['notnull' => false, 'default' => null, 'length' => 255]);
-        $technology->setPrimaryKey([$technologyIdentifier->getName()]);
+        $blogPost = $schema->createTable(name: self::POST_TABLE_NAME);
+        $blogPost->addColumn(name: 'id', typeName: Types::INTEGER, options: ['notnull' => true, 'autoincrement'=> true, 'length' => 16]);
+        $blogPost->addColumn(name: 'title', typeName: Types::STRING, options:  ['notnull' => true, 'length' => 255]);
+        $blogPost->addColumn(name: 'slug', typeName: Types::STRING, options:  ['notnull' => false, 'default' => null, 'length' => 255]);
+        $blogPost->addColumn(name: 'description', typeName: Types::STRING, options:  ['notnull' => true, 'length' => 255]);
+        $blogPost->addColumn(name: 'content', typeName: Types::TEXT, options:  ['notnull' => true]);
+        $blogPost->addColumn(name: 'published_at', typeName: Types::DATETIME_MUTABLE, options:  ['notnull' => true]);
+        $blogPost->addColumn(name: 'updated_at', typeName: Types::DATETIME_MUTABLE, options:  ['notnull' => false, 'default' => null]);
+        $blogPost->addColumn(name: 'user_identifier', typeName: Types::INTEGER, options: ['notnull' => false, 'default' => null]);
+        $blogPost->addForeignKeyConstraint(foreignTable: $user, localColumnNames: ['user_identifier'], foreignColumnNames: ['identifier']);
+        $blogPost->setPrimaryKey(['id']);
 
-        $post = $schema->createTable(name: self::POST_TABLE_NAME);
-        $postIdentifier = $post->addColumn(name: 'identifier', typeName: Types::INTEGER, options: ['notnull' => true, 'autoincrement'=> true, 'length' => 16]);
-        $post->addColumn(name: 'user_identifier', typeName: Types::INTEGER, options: ['notnull' => false, 'default' => null, 'length' => 16]);
-        $post->addColumn(name: 'technology_identifier', typeName: Types::INTEGER, options: ['notnull' => false, 'default' => null, 'length' => 16]);
-        $post->addColumn(name: 'title', typeName: Types::STRING, options:  ['notnull' => true, 'length' => 180]);
-        $post->addColumn(name: 'description', typeName: Types::STRING, options:  ['notnull' => true, 'length' => 180]);
-        $post->addColumn(name: 'content', typeName: Types::TEXT, options:  ['notnull' => true]);
-        $post->addColumn(name: 'create_at', typeName: Types::DATETIME_MUTABLE, options:  ['notnull' => true]);
-        $post->addColumn(name: 'update_at', typeName: Types::DATETIME_MUTABLE, options:  ['notnull' => false, 'default' => null]);
-        $post->addColumn(name: 'slug', typeName: Types::STRING, options:  ['notnull' => false, 'default' => null, 'length' => 255]);
-        $post->addForeignKeyConstraint(foreignTable: $user, localColumnNames: ['user_identifier'], foreignColumnNames: ['identifier']);
-        $post->addForeignKeyConstraint(foreignTable: $technology, localColumnNames: ['technology_identifier'], foreignColumnNames: ['identifier']);
+        $blogTag = $schema->createTable(name: self::TAG_TABLE_NAME);
+        $blogTag->addColumn(name: 'id', typeName: Types::INTEGER, options: ['notnull' => true, 'autoincrement'=> true, 'length' => 16]);
+        $blogTag->addColumn(name: 'name', typeName: Types::STRING, options:  ['notnull' => true, 'length' => 255]);
+        $blogTag->addColumn(name: 'color', typeName: Types::STRING, options:  ['notnull' => false, 'default' => null, 'length' => 9]);
+        $blogTag->addColumn(name: 'slug', typeName: Types::STRING, options:  ['notnull' => false, 'default' => null, 'length' => 255]);
+        $blogTag->setPrimaryKey(['id']);
+        $blogTag->addUniqueConstraint(['name']);
 
-        $post->setPrimaryKey([$postIdentifier->getName()]);
-
+        $blogPostTag = $schema->createTable(name: self::POST_TAG_TABLE_NAME);
+        $postId = $blogPostTag->addColumn(name: 'post_id', typeName: Types::INTEGER, options: ['notnull' => true]);
+        $tagId = $blogPostTag->addColumn(name: 'tag_id', typeName: Types::INTEGER, options: ['notnull' => true]);
+        $blogPostTag->addForeignKeyConstraint(foreignTable: $blogPost, localColumnNames: ['post_id'], foreignColumnNames: ['id'], options: ['onDelete' => 'CASCADE']);
+        $blogPostTag->addForeignKeyConstraint(foreignTable: $blogTag, localColumnNames: ['tag_id'], foreignColumnNames: ['id'], options: ['onDelete' => 'CASCADE']);
+        $blogPostTag->setPrimaryKey([$postId->getName(), $tagId->getName()]);
     }
 
     public function down(Schema $schema): void
     {
         $schema->dropTable(name: self::USER_TABLE_NAME);
-        $schema->dropTable(name: self::TECHNOLOGY_TABLE_NAME);
+        $schema->dropTable(name: self::TAG_TABLE_NAME);
         $schema->dropTable(name: self::POST_TABLE_NAME);
     }
 }

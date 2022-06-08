@@ -3,86 +3,75 @@
 
 namespace App\Entity;
 
+use DateTimeZone;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Symfony\Component\Uid\Ulid;
-use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'blog_post')]
 class Post
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $identifier;
+    private ?int $id = null;
 
-    #[ORM\Column(type: Types::STRING, length: 180)]
-    private string $title;
+    #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
+    private ?string $title = null;
 
-    #[ORM\Column(type: Types::STRING, length: 180)]
-    private string $description;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $slug = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private string $content;
+    #[ORM\Column(type: 'string')]
+    #[Assert\Length(max: 255)]
+    private ?string $description = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTimeInterface $createAt;
+    #[ORM\Column(type: 'text')]
+    private ?string $content = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $updateAt;
+    #[ORM\Column(type: 'datetime')]
+    private \DateTime $publishedAt;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private \DateTime $updatedAt;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[JoinColumn(name: 'user_identifier', referencedColumnName: 'identifier')]
     private ?User $author;
 
-    #[ORM\ManyToOne(targetEntity: Technology::class)]
-    #[JoinColumn(name: 'technology_identifier', referencedColumnName: 'identifier')]
-    private ?Technology $technology;
+    /**
+     * @var Tag[]|Collection
+     */
+    #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
+    #[ORM\JoinTable(name: 'post_tag')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
+    private Collection $tags;
 
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $slug;
-
-    public function getIdentifier(): int
+    public function __construct()
     {
-        return $this->identifier;
+        $this->publishedAt = new \DateTime();
+        $this->tags = new ArrayCollection();
     }
 
-    public function getTitle(): string
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function getDescription(): string
+    public function setTitle(?string $title): void
     {
-        return $this->description;
-    }
-
-    public function getContent(): string
-    {
-        return $this->content;
-    }
-
-    public function getCreateAt(): \DateTimeInterface
-    {
-        return $this->createAt;
-    }
-
-    public function getUpdateAt(): ?\DateTimeInterface
-    {
-        return $this->updateAt;
-    }
-
-    public function getAuthor(): ?User
-    {
-        return $this->author;
-    }
-
-    public function getTechnology(): ?Technology
-    {
-        return $this->technology;
+        $this->title = $title;
     }
 
     public function getSlug(): ?string
@@ -90,31 +79,19 @@ class Post
         return $this->slug;
     }
 
-
-
-    public function setTitle(string $title): void
+    public function setSlug(string $slug): void
     {
-        $this->title = $title;
+        $this->slug = $slug;
     }
 
-    public function setDescription(string $description): void
+    public function getContent(): ?string
     {
-        $this->description = $description;
+        return $this->content;
     }
 
-    public function setContent(string $content): void
+    public function setContent(?string $content): void
     {
         $this->content = $content;
-    }
-
-    public function setCreateAt(\DateTimeInterface $createAt): void
-    {
-        $this->createAt = $createAt;
-    }
-
-    public function setUpdateAt(?\DateTimeInterface $updateAt): void
-    {
-        $this->updateAt = $updateAt;
     }
 
     public function setAuthor(?User $author): void
@@ -122,15 +99,73 @@ class Post
         $this->author = $author;
     }
 
-    public function setTechnology(?Technology $technology): void
+    public function getAuthor(): ?User
     {
-        $this->technology = $technology;
+        return $this->author;
     }
 
-    public function setSlug(?string $slug): void
+    public function getPublishedAt(): \DateTime
     {
-        $this->slug = $slug;
+        return $this->publishedAt;
     }
 
+    public function setPublishedAt(\DateTime $publishedAt): void
+    {
+        $this->publishedAt = $publishedAt;
+    }
 
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string|null $description
+     */
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    #[ORM\PreUpdate]
+    public function setUpdatedAt(): self
+
+    {
+        $this->updatedAt = new \DateTime(datetime:'now', timezone:new DateTimeZone(timezone:'Europe/Paris'));
+
+        return $this;
+    }
+
+    public function addTag(Tag ...$tags): void
+    {
+        foreach ($tags as $tag) {
+            if (!$this->tags->contains($tag)) {
+                $this->tags->add($tag);
+            }
+        }
+    }
+
+    public function removeTag(Tag $tag): void
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
 }
