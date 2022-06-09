@@ -12,6 +12,7 @@ class PostFixtures extends Fixture
     public const POST = [
         [
             'title' => 'Titre du post 1',
+            'slug' => 'titre-du-post-1',
             'description' => 'La description du tuto est la suivante 1',
             'content' => 'tutu toto tuto Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium nibh ipsum consequat nisl 
               vel pretium lectus quam id. Ultricies tristique nulla aliquet enim tortor at auctor urna. Id aliquet lectus proin nibh nisl condimentum id.
@@ -25,6 +26,7 @@ class PostFixtures extends Fixture
         ],
         [
             'title' => 'Titre du post 2',
+            'slug' => 'titre-du-post-2',
             'description' => 'La description du post 2 est la suivante',
             'content' => 'tutu toto tuto Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium nibh ipsum consequat nisl 
               vel pretium lectus quam id. Ultricies tristique nulla aliquet enim tortor at auctor urna. Id aliquet lectus proin nibh nisl condimentum id.
@@ -38,6 +40,7 @@ class PostFixtures extends Fixture
         ],
         [
             'title' => 'Titre du post 3',
+            'slug' => 'titre-du-post-3',
             'description' => 'La description du post 3 est la suivante',
             'content' => 'tutu toto tuto Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium nibh ipsum consequat nisl 
               vel pretium lectus quam id. Ultricies tristique nulla aliquet enim tortor at auctor urna. Id aliquet lectus proin nibh nisl condimentum id.
@@ -51,6 +54,7 @@ class PostFixtures extends Fixture
         ],
         [
             'title' => 'Titre du post 4',
+            'slug' => 'titre-du-post-4',
             'description' => 'La description du post 4 est la suivante',
             'content' => 'tutu toto tuto Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium nibh ipsum consequat nisl 
               vel pretium lectus quam id. Ultricies tristique nulla aliquet enim tortor at auctor urna. Id aliquet lectus proin nibh nisl condimentum id.
@@ -64,6 +68,7 @@ class PostFixtures extends Fixture
         ],
         [
             'title' => 'Titre est ICI du post 5',
+            'slug' => 'titre-est-ici-du-post-5',
             'description' => 'La description du tuto est la suivante',
             'content' => 'tutu toto tuto Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium nibh ipsum consequat nisl 
               vel pretium lectus quam id. Ultricies tristique nulla aliquet enim tortor at auctor urna. Id aliquet lectus proin nibh nisl condimentum id.
@@ -77,6 +82,7 @@ class PostFixtures extends Fixture
         ],
         [
             'title' => 'Titre 5',
+            'slug' => 'titre-5',
             'description' => 'La description du tuto est la suivante',
             'content' => 'tutu toto tuto Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium nibh ipsum consequat nisl 
               vel pretium lectus quam id. Ultricies tristique nulla aliquet enim tortor at auctor urna. Id aliquet lectus proin nibh nisl condimentum id.
@@ -97,6 +103,7 @@ class PostFixtures extends Fixture
         foreach (self::POST as $data) {
             $post = new Post();
             $post->setTitle($data['title']);
+            $post->setSlug($data['slug']);
             $post->setContent($data['content']);
             $post->setDescription($data['description']);
             $post->setPublishedAt($faker->dateTime);
