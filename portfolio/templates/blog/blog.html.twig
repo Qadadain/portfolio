@@ -2,6 +2,11 @@
 
 {% block title %}Hello BlogController!{% endblock %}
 
+{% block stylesheets %}
+    <link href="{{ asset('bundles/ckeditor_mybuild/plugins/codesnippet/lib/highlight/styles/monokai_sublime.css') }}" rel="stylesheet">
+    {{ encore_entry_link_tags('post') }}
+{% endblock %}
+
 {% block body %}
     {% for post in posts %}
         <a href="{{ path('post', {'slug': post.slug}) }}"> {{ post.title }}</a>
@@ -9,4 +14,8 @@
 
         <br>
     {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('blog') }}
 {% endblock %}

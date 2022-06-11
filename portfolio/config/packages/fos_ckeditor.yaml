@@ -9,3 +9,4 @@ fos_ck_editor:
     #par défault le path démarre au dossier /public
     base_path: "bundles/ckeditor_mybuild"
     js_path:   "bundles/ckeditor_mybuild/ckeditor.js"
+
