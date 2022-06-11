@@ -2,8 +2,9 @@ FROM php:8.1.2-fpm-alpine AS base
 
 ENV APP_ENV prod
 
-RUN apk add --update --no-cache icu-dev \
- && docker-php-ext-install intl opcache pdo pdo_mysql \
+RUN apk add --update --no-cache zip libzip-dev icu-dev \
+ && docker-php-ext-configure zip \
+ && docker-php-ext-install zip intl opcache pdo pdo_mysql \
  && rm -rf /var/www/html/
 
 ########################################################################################################################

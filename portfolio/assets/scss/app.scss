@@ -17,3 +17,7 @@ a, p {
 body {
     @apply  dark:bg-neutral-800 bg-white
 }
+
+pre {
+    overflow-x: auto;
+}
