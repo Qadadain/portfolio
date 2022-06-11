@@ -3,21 +3,17 @@
 @import "tailwindcss/utilities";
 
 a, p {
-    @apply text-xl
+  @apply text-xl
 }
 
 #burger-button {
-    background-color: #27282c;
+  background-color: #27282c;
 }
 
 .nav-logo {
-    height: 130px;
+  height: 130px;
 }
 
 body {
-    @apply  dark:bg-neutral-800 bg-white
-}
-
-pre {
-    overflow-x: auto;
+  @apply dark:bg-neutral-800 bg-white
 }

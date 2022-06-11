@@ -25,8 +25,8 @@ class PostCrudController extends AbstractCrudController
         return [
             IdField::new(propertyName: 'id')->hideOnForm(),
             TextField::new(propertyName: 'title'),
-            TextEditorField::new(propertyName: 'description')->hideOnIndex()->setFormType(formTypeFqcn: CKEditorType::class),
-            TextEditorField::new(propertyName: 'content')->hideOnIndex()->setFormType(formTypeFqcn: CKEditorType::class),
+            TextEditorField::new(propertyName: 'description')->hideOnIndex()->setFormType(formTypeFqcn: CKEditorType::class)->setColumns(cols: 9),
+            TextEditorField::new(propertyName: 'content')->hideOnIndex()->setFormType(formTypeFqcn: CKEditorType::class)->setColumns(cols: 9),
             DateTimeField::new(propertyName: 'publishedAt'),
             DateTimeField::new(propertyName: 'updatedAt')->hideOnForm(),
             AssociationField::new(propertyName: 'tags'),

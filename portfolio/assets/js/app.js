@@ -7,6 +7,8 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import '../scss/app.scss';
+import('./_Components/darkMode.js');
+
 
 // start the Stimulus application
 import '../bootstrap';
@@ -15,4 +17,3 @@ const $ = require("jquery");
 $("#burger-button").click(function() {
     $("#burger-menu").toggle();
 });
-
