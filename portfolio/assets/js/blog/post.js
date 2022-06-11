@@ -1,4 +1,4 @@
-import('../../scss/app.scss');
+import('../app.js');
 import('../../scss/blog/post.scss');
 
 const copyButtonLabel = "Copy";
