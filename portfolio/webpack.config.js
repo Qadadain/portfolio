@@ -26,7 +26,6 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('blog', './assets/js/blog/blog.js')
     .addEntry('post', './assets/js/blog/post.js')
-    .addEntry('darkMode', './assets/js/_Components/darkMode.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

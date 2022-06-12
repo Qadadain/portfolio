@@ -16,5 +16,27 @@ a, p {
 }
 
 body {
-  @apply dark:bg-neutral-800 bg-white
+  @apply dark:bg-neutral-800 bg-white;
+
+  nav {
+    a {
+      @apply text-base flex items-center font-medium text-black dark:text-gray-500 align-middle dark:hover:text-stone-50 hover:text-blue-600
+    }
+  }
+
+    h1 {
+      @apply text-5xl dark:text-white text-black mb-2
+    }
+
+    h2 {
+      @apply text-2xl mb-2
+    }
+
+    h3 {
+      @apply text-xl mb-2
+    }
+
+    p {
+      @apply text-black dark:text-gray-500
+    }
 }

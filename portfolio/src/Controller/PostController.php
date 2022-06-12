@@ -26,7 +26,7 @@ class PostController extends AbstractController
     {
         $slug = $request->attributes->get(key: 'slug');
 
-        $post = $this->em->getRepository(entityName: Post::class)->findOneBy(criteria: ['slug' => $slug]);
+        $post = $this->em->getRepository(Post::class)->findOneBy(criteria: ['slug' => $slug]);
 
         return new HttpFoundation\Response(content: $this->renderer->render(name: self::TEMPLATE, context: [
             'post' => $post,
