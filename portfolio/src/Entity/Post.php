@@ -37,7 +37,7 @@ class Post
     private \DateTime $publishedAt;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private \DateTime $updatedAt;
+    private ?\DateTime $updatedAt;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[JoinColumn(name: 'user_identifier', referencedColumnName: 'identifier')]
@@ -122,7 +122,7 @@ class Post
         $this->description = $description;
     }
 
-    public function getUpdatedAt(): \DateTime
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }

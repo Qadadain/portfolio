@@ -1,6 +1,5 @@
 import('../../scss/blog/post.scss');
 
-const copyButtonLabel = "Copy";
 let blocks = document.querySelectorAll("pre");
 
 blocks.forEach((block) => {

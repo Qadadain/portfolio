@@ -24,6 +24,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
+    .addEntry('wordLoop', './assets/js/wordLoop.js')
     .addEntry('blog', './assets/js/blog/blog.js')
     .addEntry('post', './assets/js/blog/post.js')
 

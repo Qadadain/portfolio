@@ -7,6 +7,7 @@ pre {
 
   i {
     @apply bg-neutral-800 border border-gray-400;
+
     color: grey;
     position: absolute;
     top: 15px;
@@ -15,6 +16,7 @@ pre {
     border-radius: 10px;
 
   }
+
     .copied {
       color: green !important;
       border: 1px solid green;
@@ -26,7 +28,7 @@ pre {
 }
 
 a.tag {
-  @apply rounded-full text-white p-1 text-sm mr-1;
+  @apply rounded-full text-white p-2 text-sm mr-1;
 
   background-color: #1772ba;
 }
