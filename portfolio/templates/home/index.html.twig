@@ -1,7 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Quentin ADADAIN{% endblock %}
 
 {% block body %}
+    <div class="container container-home mx-auto max-h-screen my-auto max-w-6xl px-6">
+        <div class="flex flex-col">
+            <h1><span class="blue-gradient">Q</span>uentin <span class="blue-gradient">A</span>DADAIN</h1>
+            <div class="text-left">
+                <h2><span>D</span>éveloppeur <span id="word"></span></h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
+{% block javascripts %}
+{{ encore_entry_script_tags('wordLoop') }}
 {% endblock %}

@@ -7,14 +7,52 @@ a, p {
   @apply text-xl
 }
 
-#burger-button {
-  background-color: #27282c;
-}
-
 .nav-logo {
   height: 130px;
 }
 
+.container-home {
+  display: flex;
+  min-height: 70vh;
+  align-items: center;
+  text-align: center;
+  justify-content: center
+}
+
 body {
-  @apply dark:bg-neutral-800 bg-white
+  @apply dark:bg-neutral-800 bg-white;
+
+  nav {
+    a {
+      @apply text-base flex items-center font-medium text-lg text-black dark:text-gray-400 align-middle dark:hover:text-stone-50 hover:text-blue-600;
+    }
+  }
+
+  h1 {
+    @apply text-4xl dark:text-white text-black mb-2;
+
+    font-family: Roboto, system-ui;
+  }
+
+  h2 {
+    @apply text-2xl mb-2 dark:text-white text-black;
+
+    font-family: Roboto, system-ui;
+  }
+
+  h3 {
+    @apply text-xl mb-2 dark:text-white text-black;
+
+    font-family: Roboto, system-ui;
+  }
+
+  p {
+    @apply text-black dark:text-gray-400;
+
+    font-family: Roboto, system-ui;
+  }
+}
+
+span.blue-gradient {
+  color: #1772ba;
 }

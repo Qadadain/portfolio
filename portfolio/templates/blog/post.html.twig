@@ -5,10 +5,18 @@
     <link href="{{ asset('bundles/ckeditor_mybuild/plugins/codesnippet/lib/highlight/styles/monokai_sublime.css') }}" rel="stylesheet">
     {{ encore_entry_link_tags('post') }}
 {% endblock %}
+{% block description %}{{ post.title }} - Publié le {{ post.publishedAt | date('d/m/Y') }}{% if post.updatedAt is not null %} - Modifié le {{ post.updatedAt | date('d/m/Y') }}{% endif %}{% endblock %}
 {% block body %}
     <div class="container mx-auto max-w-6xl px-6">
         <h1>{{ post.title }}</h1>
-        {{ post.content | raw }}
+        <div class="flex items-center">
+        <p class="italic text-sm mr-1">Publié le {{ post.publishedAt | date('d/m/Y') }}{% if post.updatedAt is not null %} - Modifié le {{ post.updatedAt | date('d/m/Y') }}{% endif %}</p>
+        {% for tag in post.tags %}
+            <a href="#" class="tag">{{ tag.name }}</a>
+        {% endfor %}
+        </div>
+        <div class="line"></div>
+        <p>{{ post.content | raw }}</p>
     </div>
 {% endblock %}
 {% block javascripts %}
