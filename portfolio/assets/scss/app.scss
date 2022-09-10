@@ -26,6 +26,9 @@ body {
     a {
       @apply text-base flex items-center font-medium text-lg text-black dark:text-gray-400 align-middle dark:hover:text-stone-50 hover:text-blue-600;
     }
+      a.current {
+        @apply dark:text-stone-50 text-blue-600;
+      }
   }
 
   h1 {
