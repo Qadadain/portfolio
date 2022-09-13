@@ -10,17 +10,21 @@ pre {
 
     color: grey;
     position: absolute;
-    top: 15px;
+    top: 10px;
     right: 15px;
     padding: 10px;
     border-radius: 10px;
-
   }
 
     .copied {
-      color: green !important;
+      color: green;
       border: 1px solid green;
     }
+}
+
+.hljs {
+  padding: 17px;
+  border-radius: 10px;
 }
 
 .line {
