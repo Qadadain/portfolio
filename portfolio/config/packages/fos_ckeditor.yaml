@@ -3,10 +3,13 @@
 twig:
     form_themes:
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
-
-    #config/packages/fos_ckeditor.yaml
 fos_ck_editor:
-    #par défault le path démarre au dossier /public
-    base_path: "bundles/ckeditor_mybuild"
-    js_path:   "bundles/ckeditor_mybuild/ckeditor.js"
-
+    configs:
+        main_config:
+            extraPlugins: "codesnippet"
+    base_path: "bundles/fosckeditor"
+    js_path:   "bundles/fosckeditor/ckeditor.js"
+    plugins:
+        codesnippet:
+            path: "/codesnippet/"
+            filename: "plugin.js"
