@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% for tag in tags %}
+        <a href="{{ path('tag_show', {'tagName': tag.name}) }}" class="tag">{{ tag.name }}</a>
+    {% endfor %}
+{% endblock %}

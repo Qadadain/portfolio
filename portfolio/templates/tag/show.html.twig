@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mx-auto max-w-6xl px-6">
+    <h1 class="mb-5">Les derniers articles</h1>
+    {% for post in tagPost %}
+    <div>
+        <h3><a href="{{ path('post', {'slug': post.slug}) }}"> {{ post.title }}</a></h3>
+        <div class="mb-2">
+            {% for tag in post.tags %}
+                <a href="{{ path('tag_show', {'tagName': tag.name}) }}" class="tag">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+        {{ post.description | raw }}
+        <div class="line">
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
