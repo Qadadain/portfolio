@@ -62,6 +62,7 @@ span.blue-gradient {
 }
 
 a.tag {
-  @apply rounded-full text-white px-2 py-1 text-sm mr-1 mb-3;
+  @apply rounded-full text-white px-2 py-1 text-sm mr-1;
+
   background-color: #1772ba;
 }

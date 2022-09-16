@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Post;
 use App\Entity\Tag;
 use App\Repository\GetPostsByTag;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,10 +29,10 @@ class TagController extends AbstractController
     ) {
     }
 
-#[Route(path: self::ROUTE_PATH_INDEX_TAG, name: self::ROUTE_NAME_INDEX_TAG, methods: [HttpFoundation\Request::METHOD_GET])]
+    #[Route(path: self::ROUTE_PATH_INDEX_TAG, name: self::ROUTE_NAME_INDEX_TAG, methods: [HttpFoundation\Request::METHOD_GET])]
     public function handle(): HttpFoundation\Response
     {
-        $tags = $this->em->getRepository(entityName: Tag::class)->findAll();
+        $tags = $this->em->getRepository(Tag::class)->findAll();
 
         return new HttpFoundation\Response(content: $this->renderer->render(name: self::TEMPLATE_INDEX_TAG, context: [
             'tags' => $tags,
@@ -45,9 +42,9 @@ class TagController extends AbstractController
     #[Route(path: self::ROUTE_PATH_SHOW_TAG, name: self::ROUTE_NAME_SHOW_TAG, methods: [HttpFoundation\Request::METHOD_GET])]
     public function showTag(string $tagName): HttpFoundation\Response
     {
-        $tag = $this->em->getRepository(entityName: Tag::class)->findBy(['name' => $tagName]);
+        $tag = $this->em->getRepository(Tag::class)->findBy(['name' => $tagName]);
         $tagPost = $this->getPostsByTag->postByTag($tag[0]->getId());
-        $posts = $this->em->getRepository(entityName: Tag::class)->findBy(['id'=> $tagPost]);
+        $posts = $this->em->getRepository(Tag::class)->findBy(['id' => $tagPost]);
 
         return new HttpFoundation\Response(content: $this->renderer->render(name: self::TEMPLATE_SHOW_TAG, context: [
             'tagPost' => $tagPost,

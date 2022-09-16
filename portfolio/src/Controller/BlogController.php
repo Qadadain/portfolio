@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation;
@@ -24,10 +25,12 @@ class BlogController extends AbstractController
     #[Route(path: self::ROUTE_PATH_BLOG, name: self::ROUTE_NAME_BLOG, methods: [HttpFoundation\Request::METHOD_GET])]
     public function handle(): HttpFoundation\Response
     {
-        $posts = $this->em->getRepository(entityName: Post::class)->findAll();
+        $posts = $this->em->getRepository(Post::class)->findAll();
+        $tags = $this->em->getRepository(Tag::class)->findAll();
 
         return new HttpFoundation\Response(content: $this->renderer->render(name: self::TEMPLATE, context: [
             'posts' => $posts,
+            'tags' => $tags,
         ]));
     }
 }
