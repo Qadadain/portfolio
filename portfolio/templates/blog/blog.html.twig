@@ -8,12 +8,34 @@
 {% endblock %}
 
 {% block body %}
-    {% for post in posts %}
-        <a href="{{ path('post', {'slug': post.slug}) }}"> {{ post.title }}</a>
-        <br>
-    {% endfor %}
+    <div class="container mx-auto max-w-6xl px-6">
+        <h1 class="mb-5">Les derniers articles</h1>
+        <div class="lg:flex">
+            <div class="lg:w-3/4 w-full">
+                {% for post in posts %}
+                <div>
+                    <h3><a href="{{ path('post', {'slug': post.slug}) }}"> {{ post.title }}</a></h3>
+                    <div class="mb-2">
+                        {% for tag in post.tags %}
+                            <a href="{{ path('tag_show', {'tagName': tag.name}) }}" class="tag">{{ tag.name }}</a>
+                        {% endfor %}
+                    </div>
+                    {{ post.description | raw }}
+                    <div class="line"></div>
+                </div>
+                    {% endfor %}
+            </div>
+            <div class="lg:w-1/4 w-full">
+                <h2>Tout les tags</h2>
+                <div class="p-3">
+                {% for tag in tags %}
+                    <a href="{{ path('tag_show', {'tagName': tag.name}) }}" class="tag mb-4 inline-block">{{ tag.name }}</a>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('blog') }}
-{% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('blog') }}
+    {% endblock %}
