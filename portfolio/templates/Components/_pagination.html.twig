@@ -1,0 +1,30 @@
+{# tailwindcss Sliding pagination control implementation #}
+{% if pageCount > 1 %}
+    <div class="inline-block">
+        {% if first is defined and current != first %}
+            <a class="dark:bg-neutral-800 bg-white hover:text-gray-700 ml-0 rounded-l-lg leading-tight py-2 px-3 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white" href="{{ path('blog') }}">&lt;&lt;</a>
+        {% endif %}
+
+        {% if previous is defined and current == 2 %}
+            <a class="dark:bg-neutral-800 bg-white hover:text-gray-700 leading-tight py-2 px-3 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white" rel="prev" href="{{ path('blog') }}"><</a>
+        {% elseif previous is defined %}
+            <a class="dark:bg-neutral-800 bg-white hover:text-gray-700 leading-tight py-2 px-3 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white" rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            {% if page == current %}
+                <span class="dark:bg-neutral-800 text-xl bg-white text-blue-600 hover:text-gray-700 leading-tight py-2 px-3 dark:border-gray-700 dark:hover:text-white">{{ page }}</span>
+            {% elseif page == 1 %}
+                <a class="dark:bg-neutral-800 bg-white hover:text-gray-700 leading-tight py-2 px-3 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white" href="{{ path('blog') }}">{{ page }}</a>
+            {% elseif page > 1 %}
+                <a class="dark:bg-neutral-800 bg-white hover:text-gray-700 leading-tight py-2 px-3 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white" href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if next is defined %}
+            <a class="dark:bg-neutral-800 bg-white hover:text-gray-700 leading-tight py-2 px-3 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white" rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
+        {% endif %}
+        {% if last is defined and current != last %}
+            <a class="dark:bg-neutral-800 bg-white hover:text-gray-700 rounded-r-lg leading-tight py-2 px-3 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white" href="{{ path(route, query|merge({(pageParameterName): last})) }}">&gt;&gt;</a>
+        {% endif %}
+    </div>
+{% endif %}

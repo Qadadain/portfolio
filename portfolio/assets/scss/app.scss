@@ -45,9 +45,13 @@ body {
   }
 
   h3 {
-    @apply text-xl mb-2 dark:text-white text-black;
+    @apply text-2xl mb-2 dark:text-white text-black;
 
     font-family: Roboto, system-ui;
+
+    a {
+      @apply text-2xl;
+    }
   }
 
   p {
