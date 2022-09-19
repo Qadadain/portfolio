@@ -43,7 +43,8 @@ class TagController extends AbstractController
     public function showTag(string $tagName): HttpFoundation\Response
     {
         $tag = $this->em->getRepository(Tag::class)->findBy(['name' => $tagName]);
-        $tagPost = $this->getPostsByTag->postByTag($tag[0]->getId());
+        $tagId = $tag[0]->getId();
+        $tagPost = $this->getPostsByTag->postByTag($tagId);
         $posts = $this->em->getRepository(Tag::class)->findBy(['id' => $tagPost]);
 
         return new HttpFoundation\Response(content: $this->renderer->render(name: self::TEMPLATE_SHOW_TAG, context: [

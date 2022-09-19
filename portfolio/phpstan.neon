@@ -1,4 +1,12 @@
 parameters:
-  level: 9
+  level: 8
   paths:
     - src
+  checkGenericClassInNonGenericObjectType: false
+  ignoreErrors:
+      -
+        message: '#Property [a-zA-Z0-9\\_]+::\$identifier is never written, only read.#'
+        path: src/Entity/*
+      -
+        message: '#Property [a-zA-Z0-9\\_]+::\$posts is unused.#'
+        path: src/Entity/*
