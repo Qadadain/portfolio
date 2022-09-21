@@ -92,7 +92,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->posts;
     }
 
-
     public function setPosts(Collection $posts): void
     {
         $this->posts = $posts;
