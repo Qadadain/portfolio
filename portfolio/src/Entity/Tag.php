@@ -12,18 +12,18 @@ class Tag
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, )]
-    private ?int $id = null;
+    private int $id;
 
-    #[ORM\Column(type: Types::STRING, unique: true)]
-    private ?string $name = null;
+    #[ORM\Column(type: Types::STRING, unique: true, nullable: false)]
+    private string $name;
 
-    #[ORM\Column(type: Types::STRING, length: 9, nullable: true)]
-    private ?string $color;
+    #[ORM\Column(type: Types::STRING, length: 9, nullable: false)]
+    private string $color;
 
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $slug;
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
+    private string $slug;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -33,27 +33,27 @@ class Tag
         $this->name = $name;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setColor(?string $color): void
+    public function setColor(string $color): void
     {
         $this->color = $color;
     }
 
-    public function setSlug(?string $slug): void
+    public function setSlug(string $slug): void
     {
         $this->slug = $slug;
     }
 
-    public function getColor(): ?string
+    public function getColor(): string
     {
         return $this->color;
     }
 
-    public function getSlug(): ?string
+    public function getSlug(): string
     {
         return $this->slug;
     }

@@ -9,7 +9,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    private $encoder;
+    private UserPasswordHasherInterface $encoder;
 
     public function __construct(UserPasswordHasherInterface $encoder)
     {
@@ -22,7 +22,7 @@ class UserFixtures extends Fixture
         ],
     ];
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         foreach (self::ADMIN as $email => $data) {
             $admin = new User();

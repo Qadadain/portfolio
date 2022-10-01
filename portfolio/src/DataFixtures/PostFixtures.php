@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Post;
+use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -42,7 +43,8 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             $post->setDescription(description: "Description $i ".self::POST['description']);
             $post->setContent(content: self::POST['content']);
             $post->setPublishedAt($faker->dateTimeBetween('-6 months'));
-            $post->addTag($manager->find('App\Entity\Tag', rand(1, 6)), $manager->find('App\Entity\Tag', rand(1, 6)), $manager->find('App\Entity\Tag', rand(1, 6)));
+            $tags = array_filter([$manager->find(className: Tag::class, id: rand(1, 5)), $manager->find(className: Tag::class, id: rand(1, 5)), $manager->find(className: Tag::class, id: rand(1, 5))]);
+            $post->addTag(...$tags);
 
             $manager->persist($post);
         }
