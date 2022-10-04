@@ -51,10 +51,19 @@ class Post
     #[ORM\OrderBy(['name' => 'ASC'])]
     private Collection $tags;
 
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostOldSlug::class)]
+    private $oldSlug;
+
     public function __construct()
     {
         $this->publishedAt = new \DateTime();
         $this->tags = new ArrayCollection();
+        $this->oldSlug = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
     }
 
     public function getId(): ?int
@@ -155,5 +164,35 @@ class Post
     public function getTags(): Collection
     {
         return $this->tags;
+    }
+
+    /**
+     * @return Collection<int, PostOldSlug>
+     */
+    public function getOldSlug(): Collection
+    {
+        return $this->oldSlug;
+    }
+
+    public function addOldSlug(PostOldSlug $oldSlug): self
+    {
+        if (!$this->oldSlug->contains($oldSlug)) {
+            $this->oldSlug[] = $oldSlug;
+            $oldSlug->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOldSlug(PostOldSlug $oldSlug): self
+    {
+        if ($this->oldSlug->removeElement($oldSlug)) {
+            // set the owning side to null (unless already changed)
+            if ($oldSlug->getPost() === $this) {
+                $oldSlug->setPost(null);
+            }
+        }
+
+        return $this;
     }
 }
