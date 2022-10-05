@@ -21,17 +21,17 @@ class Post
 
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank]
-    private ?string $title = null;
+    private string $title;
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $slug = null;
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $slug;
 
     #[ORM\Column(type: 'string')]
     #[Assert\Length(max: 255)]
     private ?string $description = null;
 
     #[ORM\Column(type: 'text')]
-    private ?string $content = null;
+    private string $content;
 
     #[ORM\Column(type: 'datetime')]
     private \DateTime $publishedAt;
@@ -51,10 +51,19 @@ class Post
     #[ORM\OrderBy(['name' => 'ASC'])]
     private Collection $tags;
 
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostOldSlug::class)]
+    private Collection $oldSlug;
+
     public function __construct()
     {
         $this->publishedAt = new \DateTime();
         $this->tags = new ArrayCollection();
+        $this->oldSlug = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
     }
 
     public function getId(): ?int
@@ -62,17 +71,17 @@ class Post
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTitle(?string $title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    public function getSlug(): ?string
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -82,12 +91,12 @@ class Post
         $this->slug = $slug;
     }
 
-    public function getContent(): ?string
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    public function setContent(?string $content): void
+    public function setContent(string $content): void
     {
         $this->content = $content;
     }
@@ -155,5 +164,35 @@ class Post
     public function getTags(): Collection
     {
         return $this->tags;
+    }
+
+    /**
+     * @return Collection<int, PostOldSlug>
+     */
+    public function getOldSlug(): Collection
+    {
+        return $this->oldSlug;
+    }
+
+    public function addOldSlug(PostOldSlug $oldSlug): self
+    {
+        if (!$this->oldSlug->contains($oldSlug)) {
+            $this->oldSlug[] = $oldSlug;
+            $oldSlug->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOldSlug(PostOldSlug $oldSlug): self
+    {
+        if ($this->oldSlug->removeElement($oldSlug)) {
+            // set the owning side to null (unless already changed)
+            if ($oldSlug->getPost() === $this) {
+                $oldSlug->setPost(post: null);
+            }
+        }
+
+        return $this;
     }
 }
