@@ -2,10 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\PostOldSlugRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PostOldSlugRepository::class)]
+#[ORM\Entity]
 class PostOldSlug
 {
     #[ORM\Id]
