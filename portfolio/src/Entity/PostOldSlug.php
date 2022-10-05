@@ -10,25 +10,25 @@ class PostOldSlug
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $oldSlug;
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private string $oldSlug;
 
     #[ORM\ManyToOne(targetEntity: Post::class, cascade: ['persist'], inversedBy: 'oldSlug')]
-    private $post;
+    private ?Post $post;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getOldSlug(): ?string
+    public function getOldSlug(): string
     {
         return $this->oldSlug;
     }
 
-    public function setOldSlug(?string $oldSlug): self
+    public function setOldSlug(string $oldSlug): self
     {
         $this->oldSlug = $oldSlug;
 

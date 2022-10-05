@@ -38,8 +38,8 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             return;
         }
         $oldSlug = new PostOldSlug();
-        $oldSlug->setOldSlug($entity->getSlug())
-            ->setPost($entity);
+        $oldSlug->setOldSlug(oldSlug: $entity->getSlug())
+            ->setPost(post: $entity);
         $this->entityManager->persist($oldSlug);
         $this->entityManager->flush();
     }

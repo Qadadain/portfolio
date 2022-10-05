@@ -41,8 +41,7 @@ class PostController implements Action
         if (null === $post) {
             throw new PostNotFound();
         }
-
-        if (basename($request->getUri()) !== $post->getSlug()){
+        if (basename($request->getUri()) !== $post->getSlug()) {
             return new HttpFoundation\RedirectResponse($this->postUrlRedirection->urlConstructor($request), 301);
         }
 

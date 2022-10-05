@@ -17,12 +17,8 @@ final class PostUrlRedirection
 
     public function urlConstructor(Request $request): string
     {
-        $currentUrl = $request->getUri();
-        $currentUrl = explode('/', $currentUrl);
-        array_pop($currentUrl);
-        $currentUrl = implode('/', $currentUrl);
         $goodSlug = $this->entityManager->getRepository(PostOldSlug::class)->findOneBy(['oldSlug' => basename($request->getUri())]);
 
-        return $currentUrl.'/'.$goodSlug->getPost()->getSlug().'/';
+        return dirname($request->getUri()).'/'.$goodSlug->getPost()->getSlug().'/';
     }
 }
