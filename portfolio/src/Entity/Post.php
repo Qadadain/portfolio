@@ -39,7 +39,7 @@ class Post
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTime $updatedAt;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
     #[JoinColumn(name: 'user_identifier', referencedColumnName: 'identifier')]
     private ?User $author;
 

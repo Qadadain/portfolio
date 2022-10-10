@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Exception;
 
-use RuntimeException;
-
-final class PostNotFound extends RuntimeException
+final class PostNotFound extends PostError
 {
     public function __construct(\Throwable $previous = null)
     {
