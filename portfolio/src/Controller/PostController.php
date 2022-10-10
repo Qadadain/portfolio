@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Exception\PostNotFound;
 use App\Factory\PostUrlRedirection;
 use App\Repository\GetPostsBySlug;
-use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\HttpFoundation;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
@@ -29,18 +27,14 @@ class PostController implements Action
     /**
      * @throws SyntaxError
      * @throws RuntimeError
-     * @throws NonUniqueResultException
      * @throws LoaderError
      */
     #[Route(path: self::ROUTE_PATH_BLOG, name: self::ROUTE_NAME_BLOG)]
     public function handle(HttpFoundation\Request $request): HttpFoundation\Response
     {
         $slug = $request->attributes->get(key: 'slug');
+        $post = ($this->postsBySlug)($slug);
 
-        $post = $this->postsBySlug->getPostBySlug($slug);
-        if (null === $post) {
-            throw new PostNotFound();
-        }
         if (basename($request->getUri()) !== $post->getSlug()) {
             return new HttpFoundation\RedirectResponse($this->postUrlRedirection->urlConstructor($request), 301);
         }

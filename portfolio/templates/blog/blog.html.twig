@@ -13,18 +13,18 @@
         <div class="lg:flex mb-10">
             <div class="lg:w-3/4 w-full">
                 <div class="mb-10">
-                {% for post in posts %}
-                    <div>
-                        <h3><a href="{{ path('post', {'slug': post.slug}) }}"> {{ post.title }}</a></h3>
-                        <div class="mb-2">
-                            {% for tag in post.tags %}
-                                <a href="{{ path('tag_show', {'tagName': tag.name}) }}" class="tag">{{ tag.name }}</a>
-                            {% endfor %}
+                    {% for post in posts %}
+                        <div>
+                            <h3><a href="{{ path('post', {'slug': post.slug}) }}"> {{ post.title }}</a></h3>
+                            <div class="mb-2">
+                                {% for tag in post.tags %}
+                                    <a href="{{ path('tag_show', {'tagName': tag.name}) }}" class="tag">{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                            <p>{{ post.description | raw }}</p>
+                            <div class="line"></div>
                         </div>
-                        <p>{{ post.description | raw }}</p>
-                        <div class="line"></div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
                 </div>
                 <div class="flex justify-center w-full">
                     {{ knp_pagination_render(posts, 'Components/_pagination.html.twig') }}

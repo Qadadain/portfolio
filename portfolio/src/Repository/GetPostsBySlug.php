@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Post;
+use App\Exception\MultiplePostsFound;
+use App\Exception\PostNotFound;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -21,16 +23,27 @@ class GetPostsBySlug extends ServiceEntityRepository
     }
 
     /**
-     * @throws NonUniqueResultException
+     * @throws MultiplePostsFound
+     * @throws PostNotFound
      */
-    public function getPostBySlug(string $slug): mixed
+    public function __invoke(string $slug): ?Post
     {
-        return $this->createQueryBuilder('posts')
-            ->select('posts')
-            ->leftJoin('posts.oldSlug', 'oldSlug')
-            ->orWhere('oldSlug.oldSlug = :slug')
-            ->orWhere('posts.slug = :slug')
-            ->setParameter('slug', $slug)
-            ->getQuery()->getOneOrNullResult();
+        try {
+            $post = $this->createQueryBuilder('posts')
+                ->select('posts')
+                ->leftJoin('posts.oldSlug', 'oldSlug')
+                ->where('oldSlug.oldSlug = :slug')
+                ->orWhere('posts.slug = :slug')
+                ->setParameter('slug', $slug)
+                ->getQuery()->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+            throw new MultiplePostsFound($e);
+        }
+
+        if (null === $post) {
+            throw new PostNotFound();
+        }
+
+        return $post;
     }
 }

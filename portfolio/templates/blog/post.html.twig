@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello PostController!{% endblock %}
+
+{% block meta %}
+    <meta name="robots" content="index, follow"/>
+{% endblock %}
 {% block stylesheets %}
     <link href="{{ asset('codesnippet/lib/highlight/styles/monokai_sublime.css') }}" rel="stylesheet">
     {{ encore_entry_link_tags('post') }}
