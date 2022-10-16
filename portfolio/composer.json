@@ -16,6 +16,7 @@
         "friendsofsymfony/ckeditor-bundle": "^2.4",
         "fzaninotto/faker": "^1.5",
         "knplabs/knp-paginator-bundle": "^5.9",
+        "league/flysystem-bundle": "^3.0",
         "phpstan/phpstan": "^1.8",
         "symfony/console": "6.0.*",
         "symfony/dotenv": "6.0.*",
@@ -28,7 +29,8 @@
         "symfony/uid": "6.0.*",
         "symfony/web-profiler-bundle": "6.0.*",
         "symfony/webpack-encore-bundle": "^1.14",
-        "symfony/yaml": "6.0.*"
+        "symfony/yaml": "6.0.*",
+        "vich/uploader-bundle": "^1.21"
     },
     "config": {
         "allow-plugins": {

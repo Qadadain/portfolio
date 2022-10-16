@@ -17,7 +17,7 @@ class UserFixtures extends Fixture
     }
 
     public const ADMIN = [
-        'quentin.adadain@gmail.com' => [
+        'admin.admin@gmail.com' => [
             'roles' => ['ROLE_ADMIN'],
         ],
     ];

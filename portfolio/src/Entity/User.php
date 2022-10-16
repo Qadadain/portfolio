@@ -9,10 +9,13 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Id;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[Vich\Uploadable]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -34,6 +37,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class)]
     private Collection $posts;
+
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    private ?string $image;
+
+    #[Vich\UploadableField(mapping: 'user_image', fileNameProperty: 'image')]
+    private ?File $imageFile;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
+
+    public function setImageFile(?File $image = null): void
+    {
+        $this->imageFile = $image;
+
+        if (null !== $image) {
+            $this->updatedAt = new \DateTime(datetime: 'now');
+        }
+    }
+
+    public function getImageFile(): File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
+    }
+
+    public function getImage(): string
+    {
+        return $this->image;
+    }
 
     public function __toString(): string
     {
