@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="container mx-auto max-w-6xl px-6">
-    <h1 class="mb-5">Les derniers articles</h1>
+    <h1 class="mb-10">Les derniers articles</h1>
     {% for post in tagPost %}
     <div>
         <h3><a href="{{ path('post', {'slug': post.slug}) }}"> {{ post.title }}</a></h3>
@@ -11,7 +11,7 @@
                 <a href="{{ path('tag_show', {'tagName': tag.name}) }}" class="tag">{{ tag.name }}</a>
             {% endfor %}
         </div>
-        {{ post.description | raw }}
+        <p>{{ post.description | raw }}</p>
         <div class="line">
         </div>
         {% endfor %}
