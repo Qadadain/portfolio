@@ -19,13 +19,13 @@ class GetPostsByTag extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-    public function postByTag(int $id): mixed
+    public function postByTag(int $identifier): mixed
     {
         return $this->createQueryBuilder('posts')
             ->select('posts')
             ->leftJoin('posts.tags', 'tags')
-            ->andWhere('tags.id = :id')
-            ->setParameter('id', $id)
+            ->andWhere('tags.identifier = :identifier')
+            ->setParameter('identifier', $identifier)
             ->getQuery()->getResult();
     }
 }

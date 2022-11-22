@@ -6,7 +6,9 @@ use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\InverseJoinColumn;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Component\Uid\Ulid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
@@ -15,9 +17,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Post
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+    #[ORM\GeneratedValue(strategy: 'NONE')]
+    #[ORM\Column(type: 'ulid', unique: true)]
+    private Ulid $identifier;
 
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank]
@@ -46,9 +48,9 @@ class Post
     /**
      * @var Tag[]|Collection
      */
-    #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
-    #[ORM\JoinTable(name: 'post_tag')]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'posts')]
+    #[JoinColumn(name: 'identifier', referencedColumnName: 'identifier')]
+    #[InverseJoinColumn(referencedColumnName: 'identifier')]
     private Collection $tags;
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostOldSlug::class)]
@@ -66,9 +68,14 @@ class Post
         return $this->title;
     }
 
-    public function getId(): ?int
+    public function getIdentifier(): Ulid
     {
-        return $this->id;
+        return $this->identifier;
+    }
+
+    public function setIdentifier(Ulid $identifier): void
+    {
+        $this->identifier = $identifier;
     }
 
     public function getTitle(): string

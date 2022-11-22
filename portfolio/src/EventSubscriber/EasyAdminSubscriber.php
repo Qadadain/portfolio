@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Uid\Ulid;
 
 class EasyAdminSubscriber implements EventSubscriberInterface
 {
@@ -40,6 +41,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         $oldSlug = new PostOldSlug();
         $oldSlug->setOldSlug(oldSlug: $entity->getSlug())
             ->setPost(post: $entity);
+        $oldSlug->setIdentifier(new Ulid());
         $this->entityManager->persist($oldSlug);
         $this->entityManager->flush();
     }
@@ -64,6 +66,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         $oldSlug = new PostOldSlug();
         $oldSlug->setOldSlug($entity->getSlug())
             ->setPost($entity);
+        $oldSlug->setIdentifier(new Ulid());
         $this->entityManager->persist($oldSlug);
         $this->entityManager->flush();
     }
