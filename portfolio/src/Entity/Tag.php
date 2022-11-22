@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,7 +13,7 @@ class Tag
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, )]
-    private int $id;
+    private int $identifier;
 
     #[ORM\Column(type: Types::STRING, unique: true, nullable: false)]
     private string $name;
@@ -23,9 +24,13 @@ class Tag
     #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
     private string $slug;
 
-    public function getId(): int
+    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'tags')]
+    #[ORM\JoinTable(name: 'post')]
+    private Collection $posts;
+
+    public function getIdentifier(): int
     {
-        return $this->id;
+        return $this->identifier;
     }
 
     public function setName(string $name): void
@@ -56,6 +61,16 @@ class Tag
     public function getSlug(): string
     {
         return $this->slug;
+    }
+
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function setPosts(Collection $posts): void
+    {
+        $this->posts = $posts;
     }
 
     public function __toString(): string

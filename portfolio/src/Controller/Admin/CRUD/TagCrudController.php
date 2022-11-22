@@ -19,7 +19,7 @@ class TagCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new(propertyName: 'id')->hideOnForm(),
+            IdField::new(propertyName: 'identifier')->hideOnForm(),
             TextField::new(propertyName: 'name'),
             ColorField::new(propertyName: 'color'),
             SlugField::new(propertyName: 'slug')->setTargetFieldName(fieldName: 'name'),

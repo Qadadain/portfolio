@@ -21,6 +21,7 @@ a, p {
 
 body {
   @apply dark:bg-neutral-800 bg-white;
+  height: 100vh;
 
   nav {
     a {
@@ -75,4 +76,9 @@ a.tag {
   border-bottom: 1px solid grey;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.error-post {
+  @apply flex justify-center items-center;
+  height: 70vh;
 }
