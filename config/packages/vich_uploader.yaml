@@ -7,12 +7,3 @@ vich_uploader:
             upload_destination: user.storage # Use the name you defined for your storage here
     metadata:
         type: attribute
-
-<<<<<<< ours
-=======
-    #mappings:
-    #    products:
-    #        uri_prefix: /images/products
-    #        upload_destination: '%kernel.project_dir%/public/images/products'
-    #        namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
->>>>>>> theirs

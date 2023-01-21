@@ -6,7 +6,7 @@ networks:
 
 secrets:
   database-password:
-    file: portfolio/secrets/DATABASE_PASSWORD
+    file: secrets/DATABASE_PASSWORD
 
 services:
   web:
@@ -53,4 +53,4 @@ services:
       - internal
       - exposed
     ports:
-      - '8080:80'
+      - '8089:80'

@@ -5,7 +5,7 @@ ENV APP_ENV prod
 RUN apt-get update --assume-yes && apt-get install --no-install-recommends --assume-yes \
     nginx \
     libicu-dev \
- && docker-php-ext-install intl opcache \
+ && docker-php-ext-install intl pdo_mysql opcache \
  && rm -rf /var/www/html/ \
  && mkdir /var/www/html/ && chown www-data /var/www/html/ \
  && cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
@@ -84,6 +84,8 @@ COPY --chown=www-data:www-data translations /var/www/html/translations
 COPY --from=composer --chown=www-data:www-data /code/vendor /var/www/html/vendor
 COPY --from=node --chown=www-data:www-data /code/public/build /var/www/html/public/build
 COPY --chown=www-data:www-data /build/post_deploy.sh /post_deploy.sh
+
+ENV DATABASE_URL=''
 
 RUN php bin/console cache:warmup \
  && mkdir /var/server \
