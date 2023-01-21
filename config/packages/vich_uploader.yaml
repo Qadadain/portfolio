@@ -7,4 +7,3 @@ vich_uploader:
             upload_destination: user.storage # Use the name you defined for your storage here
     metadata:
         type: attribute
-

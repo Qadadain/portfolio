@@ -6,27 +6,24 @@ networks:
 
 secrets:
   database-password:
-    file: portfolio/secrets/DATABASE_PASSWORD
+    file: secrets/DATABASE_PASSWORD
 
 services:
   web:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: build/Dockerfile
       target: dev
-    ports:
-      - '${APP_HTTP_PORT-80}:8080'
-    volumes:
-      - source: portfolio
-        target: /var/www/html
-        consistency: cached
-        read_only: false
-        type: bind
-    tmpfs:
-      - /var/www/html/var
     secrets:
       - source: database-password
         target: database-password
+    env_file:
+      - .env
+      - .env.local
+    volumes:
+      - .:/var/www/html:rw
+    ports:
+      - ${PORTFOLIO_BLOG_PORT}:8080
     networks:
       - internal
       - exposed
@@ -56,4 +53,4 @@ services:
       - internal
       - exposed
     ports:
-      - '8080:80'
+      - '8089:80'
