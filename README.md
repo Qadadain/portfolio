@@ -1,5 +1,7 @@
 Common commands:
 
+
+
 ```bash
 docker compose up -d # build containers if never run before and run the project (--build to rebuild)
 
